@@ -1,0 +1,7 @@
+netbeans-c-project/build
+netbeans-c-project/dist
+netbeans-c-project/nbproject/*
+maven-nar-project/nbproject/private
+maven-nar-project/target
+target
+private

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.nms</groupId>
+        <artifactId>integration</artifactId>
+        <version>15.2.0.20</version>
+    </parent>
+	
+    <groupId>com.ericsson.nms.sso</groupId>
+    <artifactId>pam_tor_sso_root</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>Ericsson TOR/OSS-RC-UAS SSO PAM root</name>
+    <url>http://www.ericsson.com</url>
+    <organization>
+        <name>Ericsson</name>
+    </organization>
+
+    <!--    <prerequisites>
+        <maven>3.0.3</maven>
+    </prerequisites>-->
+	
+    <properties>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>  
+
+    <modules>
+        <module>native-pam-sso</module>
+<!--         <module>pam_tor_sso</module>--> 
+		<module>netbeans-c-project</module>
+   </modules>    
+ 
+
+   <!--   <repositories>
+        <repository>
+            <id>imagej</id>
+            <url>http://dev.loci.wisc.edu:8081/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>imagej</id>
+            <url>http://dev.loci.wisc.edu:8081/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories> -->  
+</project>

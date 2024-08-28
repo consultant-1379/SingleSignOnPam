@@ -1,0 +1,138 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ericsson.nms.sso</groupId>
+        <artifactId>pam_tor_sso_root</artifactId>
+        <version>1.0.0-SNAPSHOT</version>	
+    </parent>
+	
+    <groupId>com.ericsson.nms.sso</groupId>
+    <artifactId>libpam_eric_sso</artifactId>
+    <packaging>so</packaging>
+    <name>Ericsson TOR/OSS-RC-UAS SSO PAM Module</name>
+    
+    <properties>
+        <maven.native.include.os>win32</maven.native.include.os>
+        <maven.native.compiler.name>msvc</maven.native.compiler.name>
+        <native.source.dir>${basedir}/src/main/native</native.source.dir>
+    </properties>
+    
+    <!--    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.nms.sso</groupId>
+            <artifactId>ssl</artifactId>
+            <version>10.0.0</version>
+            <type>a</type>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/libssl.a</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.nms.sso</groupId>
+            <artifactId>crypt</artifactId>
+            <version>10.0.0</version>
+            <type>a</type>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/libcrypt.a</systemPath>
+        </dependency>
+    </dependencies>-->
+        
+    <build>   
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>1.0-alpha-7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <compilerProvider>generic-classic</compilerProvider>
+                    <compilerExecutable>/usr/sfw/bin/gcc</compilerExecutable>
+                    <linkerExecutable>/usr/sfw/bin/gcc</linkerExecutable>
+                    <sources>
+                        <source>
+                            <directory>${native.source.dir}</directory>  
+                            <includes>
+                                <include>**/*.c</include>
+                            </includes>                          
+                        </source>                        
+						<source>
+                            <!--<directory>${native.source.dir}</directory>-->  
+                            <directory>/usr/sfw/include</directory>
+                            <!--<directory>C:/cygwin/usr/include</directory>-->
+                            <!--<directory>C:/MinGW/include</directory>-->
+                            <!-- use this to have maven deploying header files with a .inzip type -->
+                            <!-- typically used to for library artifacts header files -->
+                            <deployable>true</deployable>
+                        </source>      
+						<source>
+                            <!--<directory>${native.source.dir}</directory>-->  
+                            <directory>/var/tmp/curl</directory>
+                            <!--<directory>C:/cygwin/usr/include</directory>-->
+                            <!--<directory>C:/MinGW/include</directory>-->
+                            <!-- use this to have maven deploying header files with a .inzip type -->
+                            <!-- typically used to for library artifacts header files -->
+                            <deployable>true</deployable>
+                        </source>   	 						
+                        <!--                        <source>
+                            <directory>${native.source.dir}</directory>  
+                            <directory>C:/cygwin/usr/include</directory>
+                            <directory>C:/MinGW/include</directory>
+                            <dependencyAnalysisParticipation>false</dependencyAnalysisParticipation>
+                        </source>                                     -->
+                    </sources>
+                    <!-- for libs as so files -->
+					 <linkerStartOptions>
+                        <linkerStartOption>-fPIC  -MMD -MP -MF -c -G -I/usr/openssl/ssl/lib -I/lib -I/usr/lib  -I/usr/local/lib -I/var/lib -I.</linkerStartOption>
+                    </linkerStartOptions>
+                    <linkerEndOptions>
+                        <linkerEndOption>-L/usr/openssl/ssl/lib -L/var/tmp/ssl -L/lib -L/var/lib -L/usr/lib -L/usr/local/lib -R/usr/openssl/ssl/lib -R/usr/local/lib -R/var/tmp/ssl -lssl -lcrypt -ldl</linkerEndOption>
+                    </linkerEndOptions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/site/cobertura</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>src/dummy-cobertura-report</directory>
+                                    <includes>
+                                        <include>*.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>                
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>            
+                </plugin>            
+            </plugins>   
+        </pluginManagement>        
+    </build>
+    
+
+</project>
